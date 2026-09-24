@@ -22,6 +22,38 @@ const cirioTimer=$('#cirio-timer');
 const cirioEvent={titulo:'Círio de Nossa Senhora de Nazaré 2026',inicio:'2026-10-11T06:00:00-03:00',fim:'2026-10-11T12:00:00-03:00',local:'Catedral Metropolitana de Belém, Belém - PA',descricao:'Missa e procissão do Círio de Nossa Senhora de Nazaré 2026.'};
 if(cirioTimer){const target=new Date(cirioTimer.dataset.cirioDate).getTime();const fields={days:cirioTimer.querySelector('[data-cirio-days]'),hours:cirioTimer.querySelector('[data-cirio-hours]'),minutes:cirioTimer.querySelector('[data-cirio-minutes]'),seconds:cirioTimer.querySelector('[data-cirio-seconds]')};const updateCirio=()=>{const delta=Math.max(0,target-Date.now());const values={days:Math.floor(delta/86400000),hours:Math.floor(delta%86400000/3600000),minutes:Math.floor(delta%3600000/60000),seconds:Math.floor(delta%60000/1000)};Object.entries(values).forEach(([key,value])=>{fields[key].textContent=String(value).padStart(2,'0')});cirioTimer.setAttribute('aria-label',delta>0?`${values.days} dias, ${values.hours} horas e ${values.minutes} minutos para o Círio de Nazaré`:'Chegou o Círio de Nazaré 2026');};updateCirio();setInterval(updateCirio,1000);}
 $('[data-cirio-calendar]')?.addEventListener('click',()=>downloadIcs(cirioEvent));
+const miniPlayer=$('#mini-player');
+const audio=$('#audio-player');
+const tracks=(c.musicas||[]).filter(track=>track && typeof track.arquivo==='string' && /\.mp3(?:[?#].*)?$/i.test(track.arquivo));
+if(miniPlayer && audio && tracks.length){
+ miniPlayer.hidden=false;
+ const title=$('#player-title');
+ const artist=$('#player-artist');
+ const currentTime=$('#player-current');
+ const duration=$('#player-duration');
+ const progress=$('#player-progress');
+ const volume=$('#player-volume');
+ const toggle=$('[data-player-toggle]');
+ const toggleIcon=$('[data-player-toggle-icon]');
+ let currentTrack=0;
+ const formatTime=seconds=>{if(!Number.isFinite(seconds))return '0:00';const minutes=Math.floor(seconds/60);return minutes+':'+String(Math.floor(seconds%60)).padStart(2,'0');};
+ const setPlaying=playing=>{toggleIcon?.setAttribute('href','assets/img/icons.svg#'+(playing?'pause':'play'));if(toggle){toggle.setAttribute('aria-label',playing?'Pausar':'Reproduzir');toggle.title=playing?'Pausar':'Reproduzir';}};
+ const loadTrack=index=>{currentTrack=(index+tracks.length)%tracks.length;const track=tracks[currentTrack];audio.src=track.arquivo;audio.load();if(title)title.textContent=track.titulo||'Faixa '+(currentTrack+1);if(artist)artist.textContent=track.artista||'Casa 7';if(progress)progress.value='0';if(currentTime)currentTime.textContent='0:00';if(duration)duration.textContent='0:00';};
+ const playCurrent=()=>audio.play().catch(()=>setPlaying(false));
+ const changeTrack=(step,keepPlaying=!audio.paused)=>{loadTrack(currentTrack+step);if(keepPlaying)playCurrent();};
+ loadTrack(0);
+ audio.volume=Number(volume?.value||0.8);
+ toggle?.addEventListener('click',()=>{if(audio.paused)playCurrent();else audio.pause();});
+ $('[data-player-prev]')?.addEventListener('click',()=>changeTrack(-1));
+ $('[data-player-next]')?.addEventListener('click',()=>changeTrack(1));
+ audio.addEventListener('play',()=>setPlaying(true));
+ audio.addEventListener('pause',()=>setPlaying(false));
+ audio.addEventListener('ended',()=>changeTrack(1,true));
+ audio.addEventListener('loadedmetadata',()=>{if(duration)duration.textContent=formatTime(audio.duration);});
+ audio.addEventListener('timeupdate',()=>{if(currentTime)currentTime.textContent=formatTime(audio.currentTime);if(progress && Number.isFinite(audio.duration))progress.value=String(audio.currentTime/audio.duration*100);});
+ progress?.addEventListener('input',()=>{if(Number.isFinite(audio.duration))audio.currentTime=Number(progress.value)/100*audio.duration;});
+ volume?.addEventListener('input',()=>{audio.volume=Number(volume.value);});
+}
 function downloadIcs(e){
  const esc=s=>String(s||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
  const utc=s=>new Date(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');

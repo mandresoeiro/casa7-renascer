@@ -21,4 +21,19 @@
   <symbol id="message" viewBox="0 0 24 24">
     <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
   </symbol>
+  <symbol id="play" viewBox="0 0 24 24">
+    <path d="m6 3 14 9-14 9z"/>
+  </symbol>
+  <symbol id="pause" viewBox="0 0 24 24">
+    <path d="M8 5v14M16 5v14"/>
+  </symbol>
+  <symbol id="previous" viewBox="0 0 24 24">
+    <path d="M19 20 9 12l10-8zM5 19V5"/>
+  </symbol>
+  <symbol id="next" viewBox="0 0 24 24">
+    <path d="m5 4 10 8-10 8zM19 5v14"/>
+  </symbol>
+  <symbol id="volume" viewBox="0 0 24 24">
+    <path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>
+  </symbol>
 </svg>

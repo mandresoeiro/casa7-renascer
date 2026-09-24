@@ -50,6 +50,23 @@ Crie o repositório vazio no GitHub antes de executar `git push`. Não inclua se
 - Eventos, contatos e playlist: `assets/js/config.js`
 - Lógica de menu, agenda, calendário e formulário: `assets/js/app.js`
 
+## Adicionar músicas ao mini player
+
+1. Coloque os arquivos `.mp3` na pasta `assets/audio/`. Prefira nomes sem espaços ou acentos, como `nome-da-musica.mp3`.
+2. Abra `assets/js/config.js` e inclua cada faixa na lista `musicas`:
+
+```js
+musicas: [
+  {
+    titulo: "Nome da música",
+    artista: "Nome do artista",
+    arquivo: "assets/audio/nome-da-musica.mp3"
+  }
+]
+```
+
+O player aparece automaticamente na página inicial quando existe ao menos uma faixa cadastrada. Publique apenas áudios que você tem autorização para disponibilizar.
+
 ## Limites desta versão
 
 - O formulário usa `mailto:`: exige aplicativo de e-mail configurado e **não envia automaticamente**.
