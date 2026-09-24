@@ -243,13 +243,44 @@ body.banner-open {
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 720px) {
+  .welcome-banner {
+    padding: 12px;
+    place-items: end end;
+    background: transparent;
+    pointer-events: none;
+    backdrop-filter: none;
+  }
+
   .welcome-banner-shell {
-    width: min(350px, 100%);
+    width: min(190px, 52vw);
+    pointer-events: auto;
   }
 
   .welcome-banner-image {
-    max-height: calc(100vh - 110px);
+    max-height: 48vh;
+  }
+
+  .welcome-banner-close {
+    top: 7px;
+    right: 7px;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .welcome-banner-footer {
+    justify-content: flex-end;
+    padding: 7px 9px;
+    font-size: 0.7rem;
+  }
+
+  .welcome-banner-footer span {
+    display: none;
+  }
+
+  body.banner-open {
+    overflow: auto;
   }
 }
 
