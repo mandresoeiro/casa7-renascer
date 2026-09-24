@@ -11,6 +11,19 @@ $('#menu')?.addEventListener('click', ev => {if(ev.target.closest('a')){menu?.se
 document.addEventListener('keydown', ev => {if(ev.key==='Escape' && $('#menu')?.classList.contains('open')){menu?.setAttribute('aria-expanded','false');$('#menu').classList.remove('open');if(menu)menu.textContent='☰';menu?.focus();}});
 $$('[data-whatsapp]').forEach(a => {if(c.whatsapp?.startsWith('https://chat.whatsapp.com/')){a.href=c.whatsapp;a.target='_blank';a.rel='noopener noreferrer';}else{a.removeAttribute('href');a.setAttribute('aria-disabled','true');a.title='O convite do grupo ainda não foi configurado';a.textContent='WhatsApp em breve';}});
 $$('[data-spotify]').forEach(a=>{try{const u=new URL(c.playlistEmbed);if(u.hostname!=='open.spotify.com'||!u.pathname.startsWith('/embed/'))throw new Error('Spotify não configurado');u.pathname=u.pathname.replace('/embed/','/');u.search='';a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';}catch(e){a.hidden=true;}});
+const welcomeBanner=$('#welcome-banner');
+if(welcomeBanner && c.bannerInicial?.imagem){
+ const bannerImage=welcomeBanner.querySelector('img');
+ const expires=c.bannerInicial.ativoAte?new Date(c.bannerInicial.ativoAte).getTime():Infinity;
+ let dismissed=false;
+ try{dismissed=sessionStorage.getItem('casa7-banner-oracao-2026')==='fechado';}catch(error){}
+ if(bannerImage){bannerImage.src=c.bannerInicial.imagem;bannerImage.alt=c.bannerInicial.descricao||'Aviso da Casa 7';}
+ const closeBanner=()=>{try{sessionStorage.setItem('casa7-banner-oracao-2026','fechado');}catch(error){}if(welcomeBanner.open)welcomeBanner.close();};
+ welcomeBanner.querySelector('[data-banner-close]')?.addEventListener('click',closeBanner);
+ welcomeBanner.addEventListener('click',event=>{if(event.target===welcomeBanner)closeBanner();});
+ welcomeBanner.addEventListener('cancel',event=>{event.preventDefault();closeBanner();});
+ if(!dismissed && Date.now()<=expires)setTimeout(()=>welcomeBanner.showModal(),700);
+}
 $$('[data-tech-mail]').forEach(a => {if(c.emailTecnico){a.href='mailto:'+encodeURIComponent(c.emailTecnico)}else{a.removeAttribute('href');a.setAttribute('aria-disabled','true');a.title='Contato técnico a configurar';}});
 const format = d => new Intl.DateTimeFormat('pt-BR',{dateStyle:'full',timeStyle:'short',timeZone:'America/Belem'}).format(d);
 const events = (c.eventos||[]).filter(e=>e.inicio && !isNaN(new Date(e.inicio))).sort((a,b)=>new Date(a.inicio)-new Date(b.inicio));

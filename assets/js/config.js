@@ -4,6 +4,11 @@ window.CASA7 = {
   emailComunidade: "", // E-mail autorizado para receber mensagens
   emailTecnico: "", // E-mail público de suporte da SoeiroTech
   playlistEmbed: "https://open.spotify.com/embed/playlist/4SNRg7QkCurQSQsNOqwFff?utm_source=generator&si=35e654be23d48c1",
+  bannerInicial: {
+    imagem: "assets/img/momento-oracao.jpg",
+    descricao: "Momento de Oração Pós Renascer, 24 de setembro, após a missa das 19h, na Igreja São João Paulo II",
+    ativoAte: "2026-09-24T22:00:00-03:00"
+  },
   musicas: [
     { titulo: "Encontro com Deus", artista: "Trilha Casa 7", arquivo: "assets/audio/encontro-com-deus.mp3" },
     { titulo: "Estrangeiro Aqui", artista: "Trilha Casa 7", arquivo: "assets/audio/estrangeiro-aqui.mp3" },
