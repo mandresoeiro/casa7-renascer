@@ -3,6 +3,8 @@
   --surface-soft: #f2efe7;
   --green-strong: #0f3d33;
   --gold-bright: #c4973f;
+  --sky: #397c94;
+  --berry: #a8325d;
   --shadow-sm: 0 8px 24px rgba(23, 62, 53, 0.08);
   --shadow-md: 0 18px 48px rgba(23, 62, 53, 0.13);
 }
@@ -246,6 +248,56 @@ body {
   letter-spacing: 0;
 }
 
+.card-icon-svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.journey-card:nth-child(2)::before {
+  background: var(--berry);
+}
+
+.journey-card:nth-child(2) .card-icon-box {
+  border-color: #e0b4c4;
+  background: #fff2f6;
+  color: var(--berry);
+}
+
+.journey-card:nth-child(3)::before {
+  background: var(--sky);
+}
+
+.journey-card:nth-child(3) .card-icon-box {
+  border-color: #b7d0da;
+  background: #eef8fb;
+  color: var(--sky);
+}
+
+.journey-card:nth-child(4)::before {
+  background: #6d7042;
+}
+
+.journey-card:nth-child(4) .card-icon-box {
+  border-color: #cfd0ad;
+  background: #f7f7e9;
+  color: #5e6238;
+}
+
+.journey-card:nth-child(5)::before {
+  background: #a66328;
+}
+
+.journey-card:nth-child(5) .card-icon-box {
+  border-color: #dfc29f;
+  background: #fff7ec;
+  color: #92531d;
+}
+
 .card-kicker {
   margin-bottom: 2px;
   color: #8b6728;
@@ -298,6 +350,96 @@ body {
 
 .textlink:hover {
   text-decoration: underline;
+}
+
+.cirio-countdown {
+  padding: 34px 0;
+  background: var(--green-strong);
+  color: #fff;
+  border-bottom: 4px solid var(--gold-bright);
+}
+
+.cirio-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto auto;
+  gap: 34px;
+  align-items: center;
+}
+
+.cirio-copy .eyebrow {
+  color: #e8c77c;
+}
+
+.cirio-copy h2 {
+  margin: 5px 0 4px;
+  font-size: clamp(1.65rem, 2.6vw, 2.35rem);
+}
+
+.cirio-copy p {
+  margin: 0;
+  color: #dce8e3;
+}
+
+.cirio-timer {
+  display: grid;
+  grid-template-columns: repeat(4, 68px);
+  gap: 8px;
+}
+
+.cirio-timer > div {
+  min-height: 72px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cirio-timer strong {
+  color: #fff;
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.cirio-timer span {
+  margin-top: 5px;
+  color: #d8e3df;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.cirio-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.cirio-actions .btn {
+  min-width: 174px;
+  text-align: center;
+}
+
+.cirio-primary {
+  border-color: var(--gold-bright);
+  background: var(--gold-bright);
+  color: #172c25;
+}
+
+.cirio-primary:hover {
+  border-color: #d5ad5f;
+  background: #d5ad5f;
+  color: #172c25;
+}
+
+.cirio-secondary {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  color: #fff;
+}
+
+.cirio-secondary:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .feature {
@@ -417,6 +559,19 @@ body {
   .nav-actions .nav-cta {
     flex: 1;
   }
+
+  .cirio-layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .cirio-timer {
+    grid-template-columns: repeat(4, minmax(58px, 82px));
+  }
+
+  .cirio-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 650px) {
@@ -452,6 +607,31 @@ body {
   .pagehero {
     padding: 50px 0 42px;
     background-position: 72% center;
+  }
+
+  .cirio-countdown {
+    padding: 30px 0;
+  }
+
+  .cirio-timer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .cirio-timer > div {
+    min-height: 66px;
+  }
+
+  .cirio-timer strong {
+    font-size: 1.22rem;
+  }
+
+  .cirio-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .cirio-actions .btn {
+    width: 100%;
   }
 
   .event-actions {
