@@ -16,9 +16,9 @@ if(welcomeBanner && c.bannerInicial?.imagem){
  const bannerImage=welcomeBanner.querySelector('img');
  const expires=c.bannerInicial.ativoAte?new Date(c.bannerInicial.ativoAte).getTime():Infinity;
  let dismissed=false;
- try{dismissed=sessionStorage.getItem('casa7-banner-oracao-2026')==='fechado';}catch(error){}
+ try{dismissed=sessionStorage.getItem('casa7-banner-oracao-2026-v2')==='fechado';}catch(error){}
  if(bannerImage){bannerImage.src=c.bannerInicial.imagem;bannerImage.alt=c.bannerInicial.descricao||'Aviso da Casa 7';}
- const closeBanner=()=>{try{sessionStorage.setItem('casa7-banner-oracao-2026','fechado');}catch(error){}welcomeBanner.classList.remove('is-visible');document.body.classList.remove('banner-open');setTimeout(()=>{welcomeBanner.hidden=true;},180);};
+ const closeBanner=()=>{try{sessionStorage.setItem('casa7-banner-oracao-2026-v2','fechado');}catch(error){}welcomeBanner.classList.remove('is-visible');document.body.classList.remove('banner-open');setTimeout(()=>{welcomeBanner.hidden=true;},180);};
  const openBanner=()=>{welcomeBanner.hidden=false;document.body.classList.add('banner-open');requestAnimationFrame(()=>welcomeBanner.classList.add('is-visible'));};
  welcomeBanner.querySelector('[data-banner-close]')?.addEventListener('click',closeBanner);
  welcomeBanner.addEventListener('click',event=>{if(event.target===welcomeBanner)closeBanner();});
