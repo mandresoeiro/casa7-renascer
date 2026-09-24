@@ -54,6 +54,22 @@ if(miniPlayer && audio && tracks.length){
  progress?.addEventListener('input',()=>{if(Number.isFinite(audio.duration))audio.currentTime=Number(progress.value)/100*audio.duration;});
  volume?.addEventListener('input',()=>{audio.volume=Number(volume.value);});
 }
+const dailyPrayer=$('#daily-prayer');
+if(dailyPrayer){
+ const today=new Date();
+ const prayers=c.oracoesDaSemana||[];
+ const prayer=prayers[today.getDay()]||{tema:'Oração do dia',texto:'Senhor, permanece conosco e conduz nossos passos neste dia. Amém.'};
+ const dateLabel=$('#daily-date');
+ const theme=$('#daily-theme');
+ const dailyWord=$('[data-daily-word]');
+ const sharePrayer=$('[data-share-prayer]');
+ const shareStatus=$('#daily-share-status');
+ if(dateLabel)dateLabel.textContent=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',timeZone:'America/Belem'}).format(today).toUpperCase();
+ if(theme)theme.textContent=prayer.tema;
+ dailyPrayer.textContent=prayer.texto;
+ if(dailyWord){const year=today.getFullYear();const month=String(today.getMonth()+1).padStart(2,'0');const day=String(today.getDate()).padStart(2,'0');dailyWord.href=`https://www.vaticannews.va/pt/palavra-do-dia/${year}/${month}/${day}.html`;}
+ sharePrayer?.addEventListener('click',async()=>{const text=`${prayer.tema}\n\n${prayer.texto}\n\nCasa 7 · Renascer Belém 2026`;try{if(navigator.share)await navigator.share({title:'Oração do dia · Casa 7',text});else{await navigator.clipboard.writeText(text);if(shareStatus)shareStatus.textContent='Oração copiada.';}}catch(error){if(error.name!=='AbortError' && shareStatus)shareStatus.textContent='Não foi possível compartilhar agora.';}});
+}
 function downloadIcs(e){
  const esc=s=>String(s||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
  const utc=s=>new Date(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
