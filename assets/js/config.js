@@ -10,11 +10,24 @@ window.CASA7 = {
     ativoAte: "2026-09-25T06:00:00-03:00"
   },
   musicas: [
-    { titulo: "Encontro com Deus", artista: "Trilha Casa 7", arquivo: "assets/audio/encontro-com-deus.mp3" },
-    { titulo: "Estrangeiro Aqui", artista: "Trilha Casa 7", arquivo: "assets/audio/estrangeiro-aqui.mp3" },
-    { titulo: "O Meu Lugar É o Céu", artista: "Trilha Casa 7", arquivo: "assets/audio/o-meu-lugar-e-o-ceu.mp3" },
+    { titulo: "Renascer", artista: "Trilha Renascer", arquivo: "assets/audio/renascer.mp3" },
     { titulo: "Rios de Água Viva", artista: "Gabriela de Sá · Cantai 2026", arquivo: "assets/audio/rios-de-agua-viva.mp3" },
-    { titulo: "Renascer", artista: "Trilha Casa 7", arquivo: "assets/audio/renascer.mp3" }
+    { titulo: "Estrangeiro Aqui", artista: "Trilha Renascer", arquivo: "assets/audio/estrangeiro-aqui.mp3" },
+    { titulo: "O Meu Lugar É o Céu", artista: "Trilha Renascer", arquivo: "assets/audio/o-meu-lugar-e-o-ceu.mp3" },
+    { titulo: "Encontro com Deus", artista: "Trilha Renascer", arquivo: "assets/audio/encontro-com-deus.mp3" },
+    { titulo: "Desperta", artista: "Flavio Vitor Jr.", arquivo: "assets/audio/desperta-flavio-vitor-jr.mp3" },
+    { titulo: "Profetiza, Filho de Maria", artista: "Colo de Deus", arquivo: "assets/audio/profetiza-filho-de-maria.mp3" },
+    { titulo: "Casa · Alpha", artista: "Colo de Deus", arquivo: "assets/audio/casa-alpha.mp3" },
+    { titulo: "Tua Presença Cura", artista: "Gabriela de Sá", arquivo: "assets/audio/tua-presenca-cura.mp3" },
+    { titulo: "O Convívio dos Eleitos", artista: "Juninho Cassimiro e Frei Gilson", arquivo: "assets/audio/o-convivio-dos-eleitos.mp3" },
+    { titulo: "Meu Melhor Amigo", artista: "Colo de Deus", arquivo: "assets/audio/meu-melhor-amigo.mp3" },
+    { titulo: "Enquanto Eu Te Adoro", artista: "Flavio Vitor Jr.", arquivo: "assets/audio/enquanto-eu-te-adoro.mp3" },
+    { titulo: "Eu Seguirei", artista: "Frei Gilson · Som do Monte", arquivo: "assets/audio/eu-seguirei.mp3" },
+    { titulo: "Serei Tudo", artista: "Trilha Renascer", arquivo: "assets/audio/serei-tudo.mp3" },
+    { titulo: "Minha Essência", artista: "Thiago Brado", arquivo: "assets/audio/minha-essencia.mp3" },
+    { titulo: "Romanos 12", artista: "Fraternidade São João Paulo II", arquivo: "assets/audio/romanos-12.mp3" },
+    { titulo: "Oração de São Francisco", artista: "Frei Gilson · Som do Monte", arquivo: "assets/audio/oracao-de-sao-francisco.mp3" },
+    { titulo: "A Tua Ternura", artista: "Trilha Renascer", arquivo: "assets/audio/a-tua-ternura.mp3" }
   ],
   oracoesDaSemana: [
     { tema: "Domingo · Gratidão", texto: "Senhor, obrigado pela vida e pela comunidade que colocaste em nosso caminho. Renova nossa fé e faz de nós presença de paz onde estivermos. Amém." },
