@@ -7,7 +7,7 @@ window.CASA7 = {
   bannerInicial: {
     imagem: "assets/img/momento-oracao.jpg",
     descricao: "Momento de Oração Pós Renascer, 24 de setembro, após a missa das 19h, na Igreja São João Paulo II",
-    ativoAte: "2026-09-24T22:00:00-03:00"
+    ativoAte: "2026-09-25T06:00:00-03:00"
   },
   musicas: [
     { titulo: "Encontro com Deus", artista: "Trilha Casa 7", arquivo: "assets/audio/encontro-com-deus.mp3" },

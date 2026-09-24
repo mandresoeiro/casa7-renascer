@@ -154,29 +154,44 @@
 
 /* Aviso discreto de boas-vindas */
 .welcome-banner {
-  width: min(410px, calc(100% - 28px));
-  max-height: calc(100vh - 28px);
-  padding: 0;
-  overflow: visible;
-  border: 0;
-  border-radius: 8px;
-  background: #17120f;
-  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
-}
-
-.welcome-banner::backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  padding: 14px;
+  place-items: center;
   background: rgba(9, 16, 14, 0.62);
+  opacity: 0;
   backdrop-filter: blur(2px);
+  transition: opacity 180ms ease;
 }
 
-.welcome-banner[open] {
-  animation: banner-in 220ms ease-out;
+.welcome-banner[hidden] {
+  display: none;
+}
+
+.welcome-banner.is-visible {
+  opacity: 1;
+}
+
+body.banner-open {
+  overflow: hidden;
 }
 
 .welcome-banner-shell {
   position: relative;
+  width: min(410px, 100%);
+  max-height: calc(100vh - 28px);
   overflow: hidden;
   border-radius: 8px;
+  background: #17120f;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+  transform: translateY(10px) scale(0.985);
+  transition: transform 220ms ease-out;
+}
+
+.welcome-banner.is-visible .welcome-banner-shell {
+  transform: translateY(0) scale(1);
 }
 
 .welcome-banner-image {
@@ -228,14 +243,9 @@
   white-space: nowrap;
 }
 
-@keyframes banner-in {
-  from { opacity: 0; transform: translateY(10px) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
 @media (max-width: 480px) {
-  .welcome-banner {
-    width: min(350px, calc(100% - 24px));
+  .welcome-banner-shell {
+    width: min(350px, 100%);
   }
 
   .welcome-banner-image {
@@ -244,8 +254,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .welcome-banner[open] {
-    animation: none;
+  .welcome-banner,
+  .welcome-banner-shell {
+    transition: none;
   }
 }
 
