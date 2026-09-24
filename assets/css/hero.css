@@ -1,0 +1,44 @@
+.hero {
+  background:
+    linear-gradient(
+      90deg,
+      #faf7f0 0%,
+      #faf7f0f2 34%,
+      #faf7f08c 58%,
+      #faf7f014 78%
+    ),
+    url("../img/fundo-optimized.jpg") 72% center / cover no-repeat;
+  min-height: 600px;
+  padding: 76px 0;
+  display: flex;
+  align-items: center;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 560px) 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+@media (max-width: 650px) {
+  .hero {
+    min-height: 650px;
+    padding: 52px 0 220px;
+    align-items: flex-start;
+    background:
+      linear-gradient(
+        180deg,
+        #faf7f0 0%,
+        #faf7f0ef 42%,
+        #faf7f04d 68%,
+        transparent 86%
+      ),
+      url("../img/fundo-optimized.jpg") 76% center / cover no-repeat;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
