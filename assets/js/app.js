@@ -111,16 +111,41 @@ function googleCalendarUrl(e){
 const playlist=$('#playlist');if(playlist && c.playlistEmbed){try{const u=new URL(c.playlistEmbed);if((u.hostname==='open.spotify.com' && u.pathname.startsWith('/embed/')) || (u.hostname==='www.youtube.com' && u.pathname.startsWith('/embed/'))){playlist.innerHTML='';const frame=document.createElement('iframe');frame.src=u.href;frame.title='Playlist da Casa 7';frame.loading='lazy';frame.allow='encrypted-media; fullscreen; picture-in-picture';frame.referrerPolicy='strict-origin-when-cross-origin';playlist.append(frame)}}catch(e){}}
 $('#contact-form')?.addEventListener('submit',ev=>{ev.preventDefault();const f=ev.currentTarget;if(!f.reportValidity())return;const assunto=$('#assunto').value;const email=assunto==='Suporte técnico'?c.emailTecnico:c.emailComunidade;const body='Nome: '+($('#nome').value.trim()||'Não informado')+'\nAssunto: '+assunto+'\n\n'+$('#mensagem').value.trim();if(!email){window.open('https://wa.me/?text='+encodeURIComponent('[Casa 7]\n\n'+body),'_blank','noopener');$('#form-status').textContent='O WhatsApp foi aberto com sua mensagem. Escolha a pessoa responsável e confirme o envio.';return;}location.href='mailto:'+encodeURIComponent(email)+'?subject='+encodeURIComponent('[Casa 7] '+assunto)+'&body='+encodeURIComponent(body);$('#form-status').textContent='Seu aplicativo de e-mail será aberto. Confira a mensagem e clique em Enviar.';});
 const galleryDialog=$('#gallery-dialog');
-$$('[data-gallery-src]').forEach(button=>button.addEventListener('click',()=>{if(!galleryDialog?.showModal)return;const source=button.dataset.gallerySrc;const preview=galleryDialog.querySelector('img');preview.src=source;preview.alt=button.querySelector('img')?.alt||'Fotografia ampliada da Casa 7';galleryDialog.showModal();}));
+let activeGallery=[];
+let activeGalleryIndex=0;
+const renderGalleryPreview=()=>{
+ if(!galleryDialog||!activeGallery.length)return;
+ const button=activeGallery[activeGalleryIndex];
+ const preview=galleryDialog.querySelector('img');
+ preview.src=button.dataset.gallerySrc;
+ preview.alt=button.querySelector('img')?.alt||'Fotografia ampliada da Casa 7';
+ galleryDialog.querySelector('.gallery-modal-status').textContent=`${activeGalleryIndex+1} de ${activeGallery.length}`;
+ galleryDialog.querySelector('.gallery-modal-prev').disabled=activeGalleryIndex===0;
+ galleryDialog.querySelector('.gallery-modal-next').disabled=activeGalleryIndex===activeGallery.length-1;
+};
+$$('[data-gallery-src]').forEach(button=>button.addEventListener('click',()=>{
+ if(!galleryDialog?.showModal)return;
+ const scope=button.closest('[data-carousel]')||document;
+ activeGallery=[...scope.querySelectorAll('[data-gallery-src]')];
+ activeGalleryIndex=activeGallery.indexOf(button);
+ renderGalleryPreview();
+ galleryDialog.showModal();
+}));
 galleryDialog?.querySelector('.gallery-close')?.addEventListener('click',()=>galleryDialog.close());
+galleryDialog?.querySelector('.gallery-modal-prev')?.addEventListener('click',()=>{if(activeGalleryIndex>0){activeGalleryIndex--;renderGalleryPreview();}});
+galleryDialog?.querySelector('.gallery-modal-next')?.addEventListener('click',()=>{if(activeGalleryIndex<activeGallery.length-1){activeGalleryIndex++;renderGalleryPreview();}});
 galleryDialog?.addEventListener('click',ev=>{if(ev.target===galleryDialog)galleryDialog.close();});
+document.addEventListener('keydown',ev=>{if(!galleryDialog?.open)return;if(ev.key==='ArrowLeft'&&activeGalleryIndex>0){activeGalleryIndex--;renderGalleryPreview();}if(ev.key==='ArrowRight'&&activeGalleryIndex<activeGallery.length-1){activeGalleryIndex++;renderGalleryPreview();}});
 $$('[data-carousel]').forEach(carousel=>{
  const viewport=carousel.querySelector('[data-carousel-viewport]');
+ const track=carousel.querySelector('.carousel-track');
  const previous=carousel.querySelector('[data-carousel-prev]');
  const next=carousel.querySelector('[data-carousel-next]');
- if(!viewport||!previous||!next)return;
- const update=()=>{const limit=viewport.scrollWidth-viewport.clientWidth;previous.disabled=viewport.scrollLeft<4;next.disabled=viewport.scrollLeft>limit-4;};
- const move=direction=>viewport.scrollBy({left:direction*viewport.clientWidth*.82,behavior:'smooth'});
+ const items=[...carousel.querySelectorAll('[data-gallery-src]')];
+ const status=carousel.closest('.gallery-album')?.querySelector('[data-carousel-status]');
+ if(!viewport||!track||!previous||!next)return;
+ const update=()=>{const limit=viewport.scrollWidth-viewport.clientWidth;const gap=parseFloat(getComputedStyle(track).columnGap)||12;const step=(items[0]?.offsetWidth||1)+gap;const index=Math.min(items.length-1,Math.max(0,Math.round(viewport.scrollLeft/step)));previous.disabled=viewport.scrollLeft<4;next.disabled=viewport.scrollLeft>limit-4;if(status)status.textContent=`${index+1} de ${items.length}`;};
+ const move=direction=>{const gap=parseFloat(getComputedStyle(track).columnGap)||12;const distance=(items[0]?.offsetWidth||viewport.clientWidth*.8)+gap;viewport.scrollBy({left:direction*distance,behavior:'smooth'});};
  previous.addEventListener('click',()=>move(-1));
  next.addEventListener('click',()=>move(1));
  viewport.addEventListener('scroll',update,{passive:true});
