@@ -114,4 +114,17 @@ const galleryDialog=$('#gallery-dialog');
 $$('[data-gallery-src]').forEach(button=>button.addEventListener('click',()=>{if(!galleryDialog?.showModal)return;const source=button.dataset.gallerySrc;const preview=galleryDialog.querySelector('img');preview.src=source;preview.alt=button.querySelector('img')?.alt||'Fotografia ampliada da Casa 7';galleryDialog.showModal();}));
 galleryDialog?.querySelector('.gallery-close')?.addEventListener('click',()=>galleryDialog.close());
 galleryDialog?.addEventListener('click',ev=>{if(ev.target===galleryDialog)galleryDialog.close();});
+$$('[data-carousel]').forEach(carousel=>{
+ const viewport=carousel.querySelector('[data-carousel-viewport]');
+ const previous=carousel.querySelector('[data-carousel-prev]');
+ const next=carousel.querySelector('[data-carousel-next]');
+ if(!viewport||!previous||!next)return;
+ const update=()=>{const limit=viewport.scrollWidth-viewport.clientWidth;previous.disabled=viewport.scrollLeft<4;next.disabled=viewport.scrollLeft>limit-4;};
+ const move=direction=>viewport.scrollBy({left:direction*viewport.clientWidth*.82,behavior:'smooth'});
+ previous.addEventListener('click',()=>move(-1));
+ next.addEventListener('click',()=>move(1));
+ viewport.addEventListener('scroll',update,{passive:true});
+ window.addEventListener('resize',update,{passive:true});
+ requestAnimationFrame(update);
+});
 })();
